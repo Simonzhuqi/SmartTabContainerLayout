@@ -17,7 +17,7 @@ allprojects {
 ### Step 2. Add the dependency
 ```
 dependencies {
-	        implementation 'com.github.Simonzhuqi:SmartTabContainerLayout:Tag'
+	        implementation 'com.github.Simonzhuqi:SmartTabContainerLayout:1.0'
 	}
 ```
 ### Step 3. Edit your xml and add this layout
