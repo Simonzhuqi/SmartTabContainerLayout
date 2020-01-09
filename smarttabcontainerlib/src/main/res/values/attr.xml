@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TabContainerLayout">
+        <attr name="tab_background" format="reference"></attr>
+        <attr name="tab_text_size" format="dimension"></attr>
+        <attr name="tab_text_color" format="color"></attr>
+        <attr name="tab_vertical_span" format="dimension"></attr>
+        <attr name="tab_horizontal_span" format="dimension"></attr>
+        <attr name="tab_padding_left" format="dimension"></attr>
+        <attr name="tab_padding_top" format="dimension"></attr>
+        <attr name="tab_padding_right" format="dimension"></attr>
+        <attr name="tab_padding_bottom" format="dimension"></attr>
+    </declare-styleable>
+</resources>
