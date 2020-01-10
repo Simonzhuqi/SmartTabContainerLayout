@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.doophe.smarttabcontainerlib.SmartTabContainerLayout;
 
@@ -33,6 +34,19 @@ public class MainActivity extends AppCompatActivity {
         };
         smartTabContainerLayout.addTabs(tabs);
 
+        smartTabContainerLayout.addCallback(new SmartTabContainerLayout.Callback() {
+            @Override
+            public void onTabClickListener(View view, String value) {
+                Toast.makeText(MainActivity.this,value,Toast.LENGTH_SHORT).show();
+                view.setActivated(!view.isActivated());
+            }
+
+            @Override
+            public void onTabLongClickListener(View view, String value) {
+
+            }
+        });
+
         editText = findViewById(R.id.edit_text);
         findViewById(R.id.btn_add).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
 
     }
 }

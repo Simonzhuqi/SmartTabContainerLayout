@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * @author simon
@@ -33,6 +32,8 @@ public class SmartTabContainerLayout extends ViewGroup {
      * 行间距
      */
     private float mVerticalSpan;
+
+    private Callback mCallback;
 
     public SmartTabContainerLayout(Context context) {
         super(context);
@@ -76,17 +77,22 @@ public class SmartTabContainerLayout extends ViewGroup {
         int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
+            //在此测量子View
             measureChild(child,widthMeasureSpec,heightMeasureSpec);
+            //测量后子View的宽
+            int childWidth = child.getMeasuredWidth();
+            //测量后子View的高
+            int childHeight = child.getMeasuredHeight();
 
-            lineTotalWidth += child.getMeasuredWidth();
+            lineTotalWidth += childWidth;
             if(lineTotalWidth > mWidth - leftPadding - rightPadding){
                 totalLine++;
-                lineTotalWidth = child.getMeasuredWidth();
+                lineTotalWidth = childWidth;
             }
             lineTotalWidth += mHorizontalSpan;
 
             if(mHeight == 0){
-                mHeight = (int) (child.getMeasuredHeight()+mVerticalSpan);
+                mHeight = (int) (childHeight + mVerticalSpan);
             }
         }
         if (mHeight != 0) {
@@ -108,17 +114,19 @@ public class SmartTabContainerLayout extends ViewGroup {
 
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
+            int childWidth = child.getMeasuredWidth();
+            int childHeight = child.getMeasuredHeight();
 
-            lineTotalWidth += child.getMeasuredWidth();
+            lineTotalWidth += childWidth;
             if(lineTotalWidth > mWidth- leftPadding - rightPadding){
                 totalLine++;
-                lineTotalWidth = child.getMeasuredWidth();
+                lineTotalWidth = childWidth;
             }
 
-            l = lineTotalWidth - child.getMeasuredWidth() + leftPadding;
-            t = (int) (totalLine * (child.getMeasuredHeight() + mVerticalSpan)) + topPadding;
-            r = l + child.getMeasuredWidth();
-            b = t + child.getMeasuredHeight();
+            l = lineTotalWidth - childWidth + leftPadding;
+            t = (int) (totalLine * (childHeight + mVerticalSpan)) + topPadding;
+            r = l + childWidth;
+            b = t + childHeight;
 
             child.layout(l, t, r, b);
 
@@ -126,7 +134,7 @@ public class SmartTabContainerLayout extends ViewGroup {
         }
     }
 
-    private View createTabView(String t) {
+    private View createTabView(final String t) {
         TextView textView = new TextView(getContext());
         textView.setPadding(mTabPaddingLeft,mTabPaddingTop,mTabPaddingRight,mTabPaddingBottom);
         textView.setText(t);
@@ -134,6 +142,23 @@ public class SmartTabContainerLayout extends ViewGroup {
         textView.setBackgroundResource(mTabBackgroundRes);
         textView.setTextSize(mTabTextSize);
         textView.setTextColor(mTabTextColor);
+        textView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCallback != null) {
+                    mCallback.onTabClickListener(v,t);
+                }
+            }
+        });
+        textView.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (mCallback != null) {
+                    mCallback.onTabLongClickListener(v, t);
+                }
+                return false;
+            }
+        });
         return textView;
     }
 
@@ -161,10 +186,14 @@ public class SmartTabContainerLayout extends ViewGroup {
         }
     }
 
+    public void addCallback(Callback callback){
+        this.mCallback = callback;
+    }
 
-
-
-
+    public interface Callback{
+        void onTabClickListener(View view, String value);
+        void onTabLongClickListener(View view, String value);
+    }
 
 
 }
