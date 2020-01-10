@@ -126,6 +126,17 @@ public class SmartTabContainerLayout extends ViewGroup {
         }
     }
 
+    private View createTabView(String t) {
+        TextView textView = new TextView(getContext());
+        textView.setPadding(mTabPaddingLeft,mTabPaddingTop,mTabPaddingRight,mTabPaddingBottom);
+        textView.setText(t);
+        textView.setGravity(Gravity.CENTER);
+        textView.setBackgroundResource(mTabBackgroundRes);
+        textView.setTextSize(mTabTextSize);
+        textView.setTextColor(mTabTextColor);
+        return textView;
+    }
+
     /**
      * 添加标签
      * @param t 标签上显示的文字
@@ -137,15 +148,23 @@ public class SmartTabContainerLayout extends ViewGroup {
     }
 
 
+    /**
+     * 批量添加标签
+     * @param tabs
+     */
+    public void addTabs(String[] tabs){
+        if (tabs != null && tabs.length > 0) {
+            for (String tab : tabs) {
+                addTab(tab);
+            }
 
-    private View createTabView(String t) {
-        TextView textView = new TextView(getContext());
-        textView.setPadding(mTabPaddingLeft,mTabPaddingTop,mTabPaddingRight,mTabPaddingBottom);
-        textView.setText(t);
-        textView.setGravity(Gravity.CENTER);
-        textView.setBackgroundResource(mTabBackgroundRes);
-        textView.setTextSize(mTabTextSize);
-        textView.setTextColor(mTabTextColor);
-        return textView;
+        }
     }
+
+
+
+
+
+
+
 }

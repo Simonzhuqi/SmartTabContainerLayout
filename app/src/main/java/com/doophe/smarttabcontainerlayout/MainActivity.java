@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         smartTabContainerLayout = findViewById(R.id.tab_container_layout);
+
         smartTabContainerLayout.addTab("默认房间");
         smartTabContainerLayout.addTab("客厅");
         smartTabContainerLayout.addTab("主卧");
@@ -26,9 +27,12 @@ public class MainActivity extends AppCompatActivity {
         smartTabContainerLayout.addTab("卫生间");
         smartTabContainerLayout.addTab("餐厅");
         smartTabContainerLayout.addTab("主卧卫生间");
-        smartTabContainerLayout.addTab("自定义房间A");
-        smartTabContainerLayout.addTab("自定义房间B");
-        smartTabContainerLayout.addTab("自定义房间C");
+
+        String[] tabs = new String[]{
+                "套间A","套间B"
+        };
+        smartTabContainerLayout.addTabs(tabs);
+
         editText = findViewById(R.id.edit_text);
         findViewById(R.id.btn_add).setOnClickListener(new View.OnClickListener() {
             @Override
