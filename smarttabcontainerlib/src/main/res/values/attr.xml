@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="TabContainerLayout">
+        <!-- 标签的背景 -->
         <attr name="tab_background" format="reference"></attr>
+        <!-- 标签的中字体大小 -->
         <attr name="tab_text_size" format="dimension"></attr>
+        <!-- 标签的中字体颜色 -->
         <attr name="tab_text_color" format="color"></attr>
+        <!-- 标签之间的行间距-->
         <attr name="tab_vertical_span" format="dimension"></attr>
+        <!-- 标签之间的水平间距 -->
         <attr name="tab_horizontal_span" format="dimension"></attr>
+        <!-- 标签的左内边距 -->
         <attr name="tab_padding_left" format="dimension"></attr>
+        <!-- 标签的上内边距 -->
         <attr name="tab_padding_top" format="dimension"></attr>
+        <!-- 标签的右内边距 -->
         <attr name="tab_padding_right" format="dimension"></attr>
+        <!-- 标签的下内边距 -->
         <attr name="tab_padding_bottom" format="dimension"></attr>
     </declare-styleable>
 </resources>

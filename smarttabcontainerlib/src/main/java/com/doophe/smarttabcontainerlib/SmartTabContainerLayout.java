@@ -114,11 +114,14 @@ public class SmartTabContainerLayout extends ViewGroup {
 
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
+            if(child.getVisibility() == GONE){
+                continue;
+            }
             int childWidth = child.getMeasuredWidth();
             int childHeight = child.getMeasuredHeight();
 
             lineTotalWidth += childWidth;
-            if(lineTotalWidth > mWidth- leftPadding - rightPadding){
+            if (lineTotalWidth > mWidth - leftPadding - rightPadding) {
                 totalLine++;
                 lineTotalWidth = childWidth;
             }
@@ -136,7 +139,7 @@ public class SmartTabContainerLayout extends ViewGroup {
 
     private View createTabView(final String t) {
         TextView textView = new TextView(getContext());
-        textView.setPadding(mTabPaddingLeft,mTabPaddingTop,mTabPaddingRight,mTabPaddingBottom);
+        textView.setPadding(mTabPaddingLeft, mTabPaddingTop, mTabPaddingRight, mTabPaddingBottom);
         textView.setText(t);
         textView.setGravity(Gravity.CENTER);
         textView.setBackgroundResource(mTabBackgroundRes);
@@ -146,7 +149,7 @@ public class SmartTabContainerLayout extends ViewGroup {
             @Override
             public void onClick(View v) {
                 if (mCallback != null) {
-                    mCallback.onTabClickListener(v,t);
+                    mCallback.onTabClickListener(v, t);
                 }
             }
         });
@@ -164,20 +167,21 @@ public class SmartTabContainerLayout extends ViewGroup {
 
     /**
      * 添加标签
+     *
      * @param t 标签上显示的文字
      */
-    public void addTab(String t){
+    public void addTab(String t) {
         if (t != null && !t.trim().isEmpty()) {
             addView(createTabView(t), getChildCount());
         }
     }
 
-
     /**
      * 批量添加标签
+     *
      * @param tabs
      */
-    public void addTabs(String[] tabs){
+    public void addTabs(String[] tabs) {
         if (tabs != null && tabs.length > 0) {
             for (String tab : tabs) {
                 addTab(tab);
@@ -186,12 +190,18 @@ public class SmartTabContainerLayout extends ViewGroup {
         }
     }
 
-    public void addCallback(Callback callback){
+
+    /**
+     * 监听回调（单击和长按的回调）
+     * @param callback
+     */
+    public void addCallback(Callback callback) {
         this.mCallback = callback;
     }
 
-    public interface Callback{
+    public interface Callback {
         void onTabClickListener(View view, String value);
+
         void onTabLongClickListener(View view, String value);
     }
 

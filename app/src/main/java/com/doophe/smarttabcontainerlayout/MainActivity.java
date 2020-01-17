@@ -3,6 +3,7 @@ package com.doophe.smarttabcontainerlayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -10,9 +11,10 @@ import android.widget.Toast;
 import com.doophe.smarttabcontainerlib.SmartTabContainerLayout;
 
 public class MainActivity extends AppCompatActivity {
+    EditText editText;
+
 
     SmartTabContainerLayout smartTabContainerLayout;
-    EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,13 @@ public class MainActivity extends AppCompatActivity {
                     smartTabContainerLayout.addTab(content);
                     editText.setText("");
                 }
+            }
+        });
+
+        editText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
             }
         });
 
